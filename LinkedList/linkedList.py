@@ -82,6 +82,22 @@ class LinkedList:
             self.length -= 1
             return popped_node
 
+    def get(self,index):
+        if index < 0 or index >= self.length:
+            return None
+        else:
+            temp = self.head
+            for _ in range(index):
+                temp = temp.next
+            return temp  # Return the Node object instead of its value
+    
+    def set_value(self,index,value):
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
+
 
 
 # Created a linked list with initial value 5
@@ -183,6 +199,38 @@ print("#Pop_First #Pop_First #Pop_First #Pop_First #Pop_First #Pop_First #Pop_Fi
 
 # Appending a new node to the linkedlist
 my_linked_list.pop_first()
+
+# Printing the linkedlist
+my_linked_list.print_list()
+
+# Printing the head pointer value
+print(f"Head: {my_linked_list.head.value}")
+
+# Printing the tail pointer value
+print(f"Tail: {my_linked_list.tail.value}")
+
+# Printing the next of tail pointer; it should be none
+print(f"Tail.Next: {my_linked_list.tail.next}")
+
+# Printing the next of tail pointer; it should be none
+print(f"Lenght of LinkedList: {my_linked_list.length}")
+
+# printing the value in the linkedlist based on index provided by user
+print(f"Get index 0: {my_linked_list.get(0)}")
+
+# printing the value in the linkedlist based on index provided by user
+print(f"Get index 1: {my_linked_list.get(1)}")
+
+# printing the value in the linkedlist based on index provided by user
+print(f"Get index 2: {my_linked_list.get(2)}")
+
+print("set_value  set_value  set_value  set_value  set_value  set_value ")
+
+# Printing the linkedlist
+my_linked_list.print_list()
+
+# Changing the value in a certain index in LL
+my_linked_list.set_value(0,20)
 
 # Printing the linkedlist
 my_linked_list.print_list()
