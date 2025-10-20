@@ -97,6 +97,56 @@ class LinkedList:
             temp.value = value
             return True
         return False
+    
+    def insert(self,index,value):
+        new_node = Node(value)
+
+        if index < 0 or index > self.length:
+            return False
+        elif index == range(self.length):
+            return self.append(value)
+        elif index == 0:
+            return self.prepend(value)
+        else:
+            temp = self.get(index - 1)
+            new_node.next = temp.next
+            temp.next = new_node
+            self.length += 1
+            return True
+    
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        elif index == 0:
+            return self.pop_first()
+        elif index == self.length-1:
+            return self.pop()
+        else:
+            pre = self.get(index - 1)
+            temp = pre.next
+            pre.next = temp.next
+            temp.next = None
+            self.length -= 1
+            return temp
+
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        after = temp.next
+        before = None
+
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
+            
+
+
+
 
 
 
@@ -246,3 +296,43 @@ print(f"Tail.Next: {my_linked_list.tail.next}")
 
 # Printing the next of tail pointer; it should be none
 print(f"Lenght of LinkedList: {my_linked_list.length}")
+
+# Using insert method to add a new node in a certain index
+print("Insert  Insert  Insert  Insert  Insert  Insert  Insert  Insert ")
+
+# Changing the value in a certain index in LL
+my_linked_list.insert(0,20)
+
+# Changing the value in a certain index in LL
+my_linked_list.insert(2,40)
+
+# Printing the linkedlist
+my_linked_list.print_list()
+
+# Printing the head pointer value
+print(f"Head: {my_linked_list.head.value}")
+
+# Printing the tail pointer value
+print(f"Tail: {my_linked_list.tail.value}")
+
+# Printing the next of tail pointer; it should be none
+print(f"Tail.Next: {my_linked_list.tail.next}")
+
+# Printing the next of tail pointer; it should be none
+print(f"Lenght of LinkedList: {my_linked_list.length}")
+
+print("Remove  Remove  Remove  Remove  Remove  Remove  Remove  Remove ")
+
+# Changing the value in a certain index in LL
+my_linked_list.remove(2)
+
+# Printing the linkedlist
+my_linked_list.print_list()
+
+print("Reverse  Reverse  Reverse  Reverse  Reverse  Reverse  Reverse  Reverse ")
+
+# reverse theLL
+my_linked_list.reverse()
+
+# Printing the linkedlist
+my_linked_list.print_list()
