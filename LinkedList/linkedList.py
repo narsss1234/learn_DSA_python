@@ -98,12 +98,12 @@ class LinkedList:
             return True
         return False
     
-    def insert(self,index,value):
+    def insert(self, index, value):
         new_node = Node(value)
 
         if index < 0 or index > self.length:
             return False
-        elif index == range(self.length):
+        elif index == self.length:  # Fix: Correct condition for appending at the end
             return self.append(value)
         elif index == 0:
             return self.prepend(value)
@@ -143,196 +143,107 @@ class LinkedList:
             before = temp
             temp = after
 
-            
-
-
-
-
-
-
 # Created a linked list with initial value 5
 my_linked_list = LinkedList(5)
 
 # Printing the type of the class of the linked list
-print(type(my_linked_list))
+print(type(my_linked_list))  # Expected: <class '__main__.LinkedList'>
 
 # Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
+print(f"Head: {my_linked_list.head.value}")  # Expected: 5
 
 # Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
+print(f"Tail: {my_linked_list.tail.value}")  # Expected: 5
 
 # Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
+print(f"Tail.Next: {my_linked_list.tail.next}")  # Expected: None
 
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the length of the linked list
+print(f"Length of LinkedList: {my_linked_list.length}")  # Expected: 1
 
-# Appending a new node to the linkedlist
+# Appending a new node to the linked list
 my_linked_list.append(10)
 
-# Printing the linkedlist
-my_linked_list.print_list()
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 5, 10
 
 # Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
+print(f"Head: {my_linked_list.head.value}")  # Expected: 5
 
 # Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
+print(f"Tail: {my_linked_list.tail.value}")  # Expected: 10
 
 # Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
+print(f"Tail.Next: {my_linked_list.tail.next}")  # Expected: None
 
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the length of the linked list
+print(f"Length of LinkedList: {my_linked_list.length}")  # Expected: 2
 
 print("#Append #Append #Append #Append #Append #Append")
-# Appending a new node to the linkedlist
+# Appending a new node to the linked list
 my_linked_list.append(15)
 
-# Printing the linkedlist
-my_linked_list.print_list()
-
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 5, 10, 15
 
 print("#Pop #Pop #Pop #Pop #Pop #Pop ")
 
-# Appending a new node to the linkedlist
+# Popping the last node from the linked list
 my_linked_list.pop()
 
-# Printing the linkedlist
-my_linked_list.print_list()
-
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 5, 10
 
 print("#Prepend #Prepend #Prepend #Prepend #Prepend #Prepend ")
 
-# Appending a new node to the linkedlist
+# Prepending a new node to the linked list
 my_linked_list.prepend(0)
 
-# Printing the linkedlist
-my_linked_list.print_list()
-
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 0, 5, 10
 
 print("#Pop_First #Pop_First #Pop_First #Pop_First #Pop_First #Pop_First #Pop_First ")
 
-# Appending a new node to the linkedlist
+# Popping the first node from the linked list
 my_linked_list.pop_first()
 
-# Printing the linkedlist
-my_linked_list.print_list()
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 5, 10
 
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
-
-# printing the value in the linkedlist based on index provided by user
-print(f"Get index 0: {my_linked_list.get(0)}")
-
-# printing the value in the linkedlist based on index provided by user
-print(f"Get index 1: {my_linked_list.get(1)}")
-
-# printing the value in the linkedlist based on index provided by user
-print(f"Get index 2: {my_linked_list.get(2)}")
+# Printing the value in the linked list based on index provided by user
+print(f"Get index 0: {my_linked_list.get(0).value}")  # Expected: 5
+print(f"Get index 1: {my_linked_list.get(1).value}")  # Expected: 10
+print(f"Get index 2: {my_linked_list.get(2)}")  # Expected: None
 
 print("set_value  set_value  set_value  set_value  set_value  set_value ")
 
-# Printing the linkedlist
-my_linked_list.print_list()
+# Changing the value in a certain index in the linked list
+my_linked_list.set_value(0, 20)
 
-# Changing the value in a certain index in LL
-my_linked_list.set_value(0,20)
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 20, 10
 
-# Printing the linkedlist
-my_linked_list.print_list()
-
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
-
-# Using insert method to add a new node in a certain index
 print("Insert  Insert  Insert  Insert  Insert  Insert  Insert  Insert ")
 
-# Changing the value in a certain index in LL
-my_linked_list.insert(0,20)
+# Using insert method to add a new node in a certain index
+my_linked_list.insert(0, 30)
+my_linked_list.insert(2, 40)
 
-# Changing the value in a certain index in LL
-my_linked_list.insert(2,40)
-
-# Printing the linkedlist
-my_linked_list.print_list()
-
-# Printing the head pointer value
-print(f"Head: {my_linked_list.head.value}")
-
-# Printing the tail pointer value
-print(f"Tail: {my_linked_list.tail.value}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Tail.Next: {my_linked_list.tail.next}")
-
-# Printing the next of tail pointer; it should be none
-print(f"Lenght of LinkedList: {my_linked_list.length}")
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 30, 20, 40, 10
 
 print("Remove  Remove  Remove  Remove  Remove  Remove  Remove  Remove ")
 
-# Changing the value in a certain index in LL
+# Removing a node at a certain index
 my_linked_list.remove(2)
 
-# Printing the linkedlist
-my_linked_list.print_list()
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 30, 20, 10
 
 print("Reverse  Reverse  Reverse  Reverse  Reverse  Reverse  Reverse  Reverse ")
 
-# reverse theLL
+# Reversing the linked list
 my_linked_list.reverse()
 
-# Printing the linkedlist
-my_linked_list.print_list()
+# Printing the linked list
+my_linked_list.print_list()  # Expected: 10, 20, 30
