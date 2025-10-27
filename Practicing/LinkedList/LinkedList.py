@@ -122,20 +122,32 @@ class LinkedList:
         self.length -= 1
         return temp
 
-def reverse(self):
-        temp = self.head
-        self.head = self.tail
-        self.tail = temp
+    def reverse(self):
+            if self.length == 0 or self.length == 1:
+                return True
+            temp = self.head
+            self.head = self.tail
+            self.tail = temp
 
-        before = None
-        after = temp.next
-
-        for _ in range(self.length):
+            before = None
             after = temp.next
-            temp.next = before
-            before = temp
-            temp = after
-        return True
+
+            for _ in range(self.length):
+                after = temp.next
+                temp.next = before
+                before = temp
+                temp = after
+            return True
+
+    def find_middle_node(self):
+        slow = self.head
+        fast = self.head
+
+        while(fast is not None and fast.next is not None):
+            slow = slow.next
+            fast = fast.next.next
+
+        return slow
 
 
 # Test cases
@@ -529,31 +541,20 @@ def test_linked_list():
     # Test 12: Testing reverse method
     print("\n=== Test 12: Testing reverse method ===")
 
-    # Helper to call reverse whether it's a method or module-level function
-    def _call_reverse(lst):
-        # prefer method if present
-        if hasattr(lst, 'reverse') and callable(getattr(lst, 'reverse')):
-            return lst.reverse()
-        else:
-            # fallback to module-level function if defined
-            return globals().get('reverse')(lst)
-
-    # Reverse on empty list: should remain empty after call
+    # Reverse on empty list
     print("\nReversing an empty list...")
     empty_list = LinkedList(1)
     empty_list.pop()  # make empty
-    try:
-        _call_reverse(empty_list)
-    except Exception as e:
-        # if implementation raises on empty, that's acceptable for now; ensure list still empty
-        print(f"Reverse raised on empty list: {e}")
+    result = empty_list.reverse()
+    assert result is True, "Reverse should return True"
     assert empty_list.head is None and empty_list.tail is None and empty_list.length == 0, "Empty list should remain empty after reverse"
     print("✓ Reverse empty list test passed!")
 
     # Reverse on single-node list
     print("\nReversing a single-node list...")
     single = LinkedList(7)
-    _call_reverse(single)
+    result = single.reverse()
+    assert result is True, "Reverse should return True"
     assert single.head == single.tail and single.head.value == 7 and single.head.next is None, "Single node list should remain unchanged after reverse"
     print("✓ Reverse single-node test passed!")
 
@@ -565,7 +566,8 @@ def test_linked_list():
     my_list.append(4)
     before = [my_list.get(i).value for i in range(my_list.length)]
     print(f"Before reverse: {before}")
-    _call_reverse(my_list)
+    result = my_list.reverse()
+    assert result is True, "Reverse should return True"
     after = [my_list.get(i).value for i in range(my_list.length)]
     print(f"After reverse: {after}")
     assert after == before[::-1], "List should be reversed"
@@ -574,10 +576,59 @@ def test_linked_list():
 
     # Reverse again to restore original order
     print("\nReversing again to restore original order...")
-    _call_reverse(my_list)
+    result = my_list.reverse()
+    assert result is True, "Reverse should return True"
     restored = [my_list.get(i).value for i in range(my_list.length)]
     assert restored == before, "Double reverse should restore original order"
     print("✓ Double-reverse restore test passed!")
+
+    # Test 13: Testing find_middle_node method
+    print("\n=== Test 13: Testing find_middle_node method ===")
+
+    # Test with empty list
+    print("\nTesting find_middle_node with empty list...")
+    empty_list = LinkedList(1)
+    empty_list.pop()  # make empty
+    middle_node = empty_list.find_middle_node()
+    assert middle_node is None, "Middle node of empty list should be None"
+    print("✓ Empty list middle node test passed!")
+
+    # Test with single node
+    print("\nTesting find_middle_node with single node...")
+    single = LinkedList(5)
+    middle_node = single.find_middle_node()
+    assert middle_node.value == 5, "Middle node of single-node list should be 5"
+    print("✓ Single node middle node test passed!")
+
+    # Test with even number of nodes
+    print("\nTesting find_middle_node with even number of nodes...")
+    even_list = LinkedList(1)
+    even_list.append(2)
+    even_list.append(3)
+    even_list.append(4)  # List: 1 -> 2 -> 3 -> 4
+    middle_node = even_list.find_middle_node()
+    assert middle_node.value == 3, "For even length list, should return second middle node"
+    print("✓ Even length list middle node test passed!")
+
+    # Test with odd number of nodes
+    print("\nTesting find_middle_node with odd number of nodes...")
+    odd_list = LinkedList(1)
+    odd_list.append(2)
+    odd_list.append(3)
+    odd_list.append(4)
+    odd_list.append(5)  # List: 1 -> 2 -> 3 -> 4 -> 5
+    middle_node = odd_list.find_middle_node()
+    assert middle_node.value == 3, "For odd length list, should return middle node"
+    print("✓ Odd length list middle node test passed!")
+
+    # Test with longer list
+    print("\nTesting find_middle_node with longer list...")
+    long_list = LinkedList(1)
+    for i in range(2, 11):  # Create list with 10 nodes
+        long_list.append(i)
+    middle_node = long_list.find_middle_node()
+    assert middle_node.value == 6, "For 10 nodes, middle should be 6"
+    print("✓ Longer list middle node test passed!")
 
 if __name__ == "__main__":
     try:
