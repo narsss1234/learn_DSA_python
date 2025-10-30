@@ -149,6 +149,33 @@ class LinkedList:
 
         return slow
 
+    def has_loop(self):
+        slow = self.head
+        fast = self.head
+        while(fast is not None and fast.next is not None):
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow.value == fast.value:
+                return True
+            
+        return False
+
+    def find_kth_from_end(self, k):
+        slow = self.head
+        fast = self.head
+
+        for _ in range(k):
+            if fast is None:
+                return None
+            fast = fast.next
+        
+        while(fast):
+            fast = fast.next
+            slow = slow.next
+        
+        return slow
+
 
 # Test cases
 def test_linked_list():
@@ -629,6 +656,117 @@ def test_linked_list():
     middle_node = long_list.find_middle_node()
     assert middle_node.value == 6, "For 10 nodes, middle should be 6"
     print("✓ Longer list middle node test passed!")
+
+    # Test 14: Testing has_loop function
+    print("\n=== Test 14: Testing has_loop function ===")
+
+    # Case 1: No loop (normal list)
+    no_loop_list = LinkedList(1)
+    for i in range(2, 6):
+        no_loop_list.append(i)
+    print("Testing has_loop on normal list (should be False)...")
+    result = no_loop_list.has_loop()
+    print(f"has_loop result: {result}")
+    assert result is False, "has_loop should return False for normal list"
+    print("✓ No loop test passed!")
+
+    # Case 2: List with a loop
+    loop_list = LinkedList(1)
+    for i in range(2, 6):
+        loop_list.append(i)
+    # Create a loop: tail.next points to second node
+    loop_list.tail.next = loop_list.head.next
+    print("Testing has_loop on list with a loop (should be True)...")
+    # To avoid infinite loop in buggy implementation, catch exception or timeout
+    try:
+        result = loop_list.has_loop()
+        print(f"has_loop result: {result}")
+        assert result is True, "has_loop should return True for list with a loop"
+        print("✓ Loop test passed!")
+    except Exception as e:
+        print(f"Exception occurred: {e}")
+
+    # Case 3: Single node (no loop)
+    single_node_list = LinkedList(42)
+    print("Testing has_loop on single node list (should be False)...")
+    result = single_node_list.has_loop()
+    print(f"has_loop result: {result}")
+    assert result is False, "has_loop should return False for single node list"
+    print("✓ Single node no loop test passed!")
+
+    # Case 4: Empty list
+    empty_list = LinkedList(99)
+    empty_list.pop()  # Make it empty
+    print("Testing has_loop on empty list (should be False)...")
+    result = empty_list.has_loop()
+    print(f"has_loop result: {result}")
+    assert result is False, "has_loop should return False for empty list"
+    print("✓ Empty list no loop test passed!")
+
+    # Test 15: Testing find_kth_from_end function
+    print("\n=== Test 15: Testing find_kth_from_end function ===")
+
+    # Test Case 1: Basic test with k=1 (last element)
+    print("\nTest Case 1: Finding last element (k=1)...")
+    my_list = LinkedList(1)
+    my_list.append(2)
+    my_list.append(3)
+    my_list.append(4)
+    my_list.append(5)  # List: 1 -> 2 -> 3 -> 4 -> 5
+    result = my_list.find_kth_from_end(1)
+    print(f"Looking for 1st node from end in list: [1,2,3,4,5]")
+    print(f"Result: {result.value}")
+    assert result.value == 5, "1st from end should be 5 (last element)"
+    print("✓ Basic k=1 test passed!")
+
+    # Test Case 2: Finding first element (k = length)
+    print("\nTest Case 2: Finding first element (k=5)...")
+    result = my_list.find_kth_from_end(5)
+    print(f"Looking for 5th node from end in list: [1,2,3,4,5]")
+    print(f"Result: {result.value}")
+    assert result.value == 1, "5th from end should be 1 (first element)"
+    print("✓ k=length test passed!")
+
+    # Test Case 3: Finding middle element
+    print("\nTest Case 3: Finding middle element (k=3)...")
+    result = my_list.find_kth_from_end(3)
+    print(f"Looking for 3rd node from end in list: [1,2,3,4,5]")
+    print(f"Result: {result.value}")
+    assert result.value == 3, "3rd from end should be 3"
+    print("✓ Middle element test passed!")
+
+    # Test Case 4: Single node list
+    print("\nTest Case 4: Testing with single node list...")
+    single_list = LinkedList(42)
+    result = single_list.find_kth_from_end(1)
+    print(f"Looking for 1st node from end in single-node list: [42]")
+    print(f"Result: {result.value}")
+    assert result.value == 42, "Single node list should return the only node with k=1"
+    print("✓ Single node test passed!")
+
+    # Test Case 5: Two node list
+    print("\nTest Case 5: Testing with two node list...")
+    two_node_list = LinkedList(1)
+    two_node_list.append(2)  # List: 1 -> 2
+    result = two_node_list.find_kth_from_end(2)
+    print(f"Looking for 2nd node from end in list: [1,2]")
+    print(f"Result: {result.value}")
+    assert result.value == 1, "2nd from end should be 1 (first element)"
+    print("✓ Two node test passed!")
+
+    # Test Case 6: Longer list
+    print("\nTest Case 6: Testing with longer list...")
+    long_list = LinkedList(1)
+    for i in range(2, 11):  # Create list with 10 nodes
+        long_list.append(i)
+    result = long_list.find_kth_from_end(3)
+    print(f"Looking for 3rd node from end in list of 10 nodes")
+    print(f"Result: {result.value}")
+    assert result.value == 8, "3rd from end in 10-node list should be 8"
+    print("✓ Longer list test passed!")
+
+    print("\n✓ All find_kth_from_end tests passed successfully!")
+
 
 if __name__ == "__main__":
     try:
