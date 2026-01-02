@@ -30,6 +30,21 @@ class BinarySearchTree:
                         return True
                     temp = temp.right
 
+    def _r_insert(self, value):
+        if self.root == None:
+            self.root = Node(value)
+        self.__r_insert(self.root, value)
+
+    def __r_insert(self, current_node, value):
+        new_node = Node(value)
+        if current_node == None:
+            return new_node
+        if new_node.value < current_node.value:
+            current_node.left = self.__r_insert(current_node.left, value)
+        if new_node.value > current_node.value:
+            current_node.right = self.__r_insert(current_node.right, value)
+        return current_node
+
     def contains(self, value):
         if self.root is None:
             return False
@@ -64,7 +79,7 @@ if __name__ == "__main__":
     assert bst.insert(10) == False  # Duplicate value not allowed
 
     # Test inserting deeper nodes
-    assert bst.insert(3) == True
+    bst._r_insert(3)
     assert bst.root.left.left.value == 3
     assert bst.insert(7) == True
     assert bst.root.left.right.value == 7
